@@ -11,6 +11,10 @@ public interface UserMapper {
     @Insert("insert into users(account_id, name, token, gmt_create, gmt_modified) values(#{accountId}, #{name}, #{token}, #{gmtCreate}, #{gmtModified})")
     void setUser(User user);
 
-    @Select("select id, account_id, name, token, gmt_create, gmt_modified, password from users where name = #{name}")
+    @Select("select id, account_id, name, token, gmt_create, gmt_modified, avatar_url,password from users where name = #{name}")
     User getByUser(String name);
+
+    @Select("select * from users where id = #{id}")
+    User selectAll(Integer id);
+
 }
