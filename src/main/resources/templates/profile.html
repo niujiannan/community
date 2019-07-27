@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${sectionName}"></title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <script type="application/javascript" src="/bootstrap/js/jquery.min.js"></script>
+    <script type="application/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #efefef;">
+
+<div th:insert="navgation :: nav"></div>
+<div class="container-fluid" style="margin: 30px 50px; background-color: #fff;">
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+            <h2><span th:text="${sectionName}"></span></h2>
+            <hr>
+            <div class="media" th:each="question :${profileQuestions}">
+                <div class="media-left">
+                    <a href="#">
+                        <img width="50px" class="media-object img-rounded" th:src="${session.user.avatarUrl}">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <span style="color:#999; font-size:12px;">
+                        浏览：<span th:text="${question.viewCount}"></span>
+                        , 评论：<span th:text="${question.commentCount}"></span>
+                        , 发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
+                    </span>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="margin-top:72px;">
+            <div class="list-group">
+                <a href="/profile/questions" th:class="${section =='questions'} ? 'list-group-item active' : 'list-group-item'">
+                    我的问题
+                </a>
+                <a href="/profile/repies" th:class="${section =='repies'} ? 'list-group-item active' : 'list-group-item'">最新回复</a>
+                <a href="#" class="list-group-item">Morbi leo risus</a>
+                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                <a href="#" class="list-group-item">Vestibulum at eros</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

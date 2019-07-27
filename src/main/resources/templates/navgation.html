@@ -34,7 +34,7 @@
                                 <span th:text="${session.user.name}"></span>
                                 <span class="caret"></span>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">个人问题</a></li>
+                                    <li><a th:href="@{'/profile/questions/' + ${session.user.id}}">我的问题</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#">个人资料</a></li>
                                     <li role="separator" class="divider"></li>

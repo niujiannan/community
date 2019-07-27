@@ -46,4 +46,20 @@ public class QuestionService {
 
         return questionDtoList;
     }
+
+    public List<Question> selectQuestionProfile(Long id) {
+        List<Question> questions = new ArrayList<>();
+        questions = questionMapper.selectQuestionProfile(id);
+        return questions;
+    }
+
+    public QuestionDto getIdQuestion(Long questionId) {
+        Question question = questionMapper.getIdQuestion(questionId);
+        QuestionDto questionDto = new QuestionDto();
+       if(question != null) {
+           BeanUtils.copyProperties(question, questionDto);
+           questionDto.setUser(userMapper.selectAll(question.getCreator()));
+       }
+        return questionDto;
+    }
 }
