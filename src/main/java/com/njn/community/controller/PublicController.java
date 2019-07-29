@@ -14,8 +14,11 @@ public class PublicController {
     @Autowired
     private QuestionService questionService;
 
+
+
     @GetMapping("/public/{questionId}")
     public String publicQuestion(@PathVariable("questionId") Long questionId, Model model){
+        questionService.updateviewCount(questionId);
         QuestionDto questionDto = questionService.getIdQuestion(questionId);
         model.addAttribute("questionDto" ,questionDto);
         return "public";

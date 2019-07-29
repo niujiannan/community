@@ -15,7 +15,7 @@
         <div class="col-lg-9 col-md-12 col-sm-12">
             <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 话题</h2>
             <hr>
-            <div class="media" th:each="question :${questionList}">
+            <div class="media" th:each="question :${pageingDto.questionList}">
                 <div class="media-left">
                     <a href="#">
                         <img width="50px" class="media-object img-rounded" th:src="${question.user.avatarUrl}">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading"><a th:href="${'/public/' + question.id}" th:text="${question.title}"></a></h4>
-                    <div>多看视频</div>
+                    <br>
                     <span style="color:#999; font-size:12px;">
                         浏览：<span th:text="${question.viewCount}"></span>
                         , 评论：<span th:text="${question.commentCount}"></span>
@@ -39,11 +39,8 @@
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
+                    <li th:each="i : ${#numbers.sequence(1, pageingDto.pageCount)}"><a th:href="@{/(page=${i})}" th:text="${i}"></a></li>
+
                     <li>
                         <a href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>

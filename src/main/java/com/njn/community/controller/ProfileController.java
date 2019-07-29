@@ -18,12 +18,14 @@ public class ProfileController {
     @Autowired
     private QuestionService questionService;
 
-    @GetMapping("/profile/{action}/{userId}")
-    public String profile(@PathVariable("action") String action,@PathVariable("userId") String userId, Model model, HttpServletRequest request) {
-        System.out.println(userId);
+
+    @GetMapping("/profile/{action}")
+    public String profile(@PathVariable("action") String action,
+                          Model model,
+                          HttpServletRequest request) {
         if("questions".equals(action)) {
             User user = (User)request.getSession().getAttribute("user");
-            List<Question> profileQuestions = questionService.selectQuestionProfile(Long.parseLong(userId));
+            List<Question> profileQuestions = questionService.selectQuestionProfile(user.getId());
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "我的问题");
             model.addAttribute("profileQuestions",profileQuestions);

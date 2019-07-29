@@ -31,9 +31,9 @@ public class QuestionService {
         return questionMapper.insertQuestion(question);
     }
 
-    public List<QuestionDto> selectAll() {
+    public List<QuestionDto> selectAll(Integer start, Integer size) {
         List<QuestionDto> questionDtoList = new ArrayList<>();
-        List<Question> questionList = questionMapper.selectAll();
+        List<Question> questionList = questionMapper.selectAll(start, size);
         if(questionList != null) {
             for(Question question : questionList) {
                 User user = userMapper.selectAll(question.getCreator());
@@ -61,5 +61,15 @@ public class QuestionService {
            questionDto.setUser(userMapper.selectAll(question.getCreator()));
        }
         return questionDto;
+    }
+
+    public Integer dataCount(){
+        return questionMapper.dataCount();
+    };
+
+    public void updateviewCount(Long questionId) {
+        Integer viewCount = questionMapper.getViewCount(questionId);
+        viewCount++;
+        questionMapper.updateviewCount(questionId, viewCount);
     }
 }

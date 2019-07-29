@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <script type="application/javascript" src="/bootstrap/js/jquery.min.js"></script>
     <script type="application/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/markdown/css/editormd.css" />
 </head>
 <body style="background-color: #efefef;">
 
@@ -28,8 +29,8 @@
                     </span>
                 </div>
                 <hr>
-                <div th:text="${questionDto.desciption}">
-
+                <div id="question-markdown-view">
+                    <textarea style="display:none;" th:text="${questionDto.desciption}"></textarea>
                 </div>
                 <hr>
             </div>
@@ -47,5 +48,14 @@
         </div>
     </div>
 </div>
+    <script src="/bootstrap/js/jquery.min.js"></script>
+    <script src="/markdown/editormd.min.js"></script>
+    <script src="/markdown/lib/marked.min.js"></script>
+    <script src="/markdown/lib/prettify.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            editormd.markdownToHTML("question-markdown-view", {});
+        });
+    </script>
 </body>
 </html>

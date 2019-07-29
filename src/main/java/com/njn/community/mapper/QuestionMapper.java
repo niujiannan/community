@@ -2,9 +2,7 @@ package com.njn.community.mapper;
 
 import com.njn.community.domain.Question;
 import com.njn.community.dto.QuestionDto;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,12 +13,21 @@ public interface QuestionMapper {
             "values(#{title}, #{desciption}, #{gmtCreate}, #{gmtModified}, #{creator}, #{commentCount}, #{viewCount}, #{likeCount}, #{tag})")
     Integer insertQuestion(Question question);
 
-    @Select("select * from question")
-    List<Question> selectAll();
+    @Select("select * from question order by gmt_create desc limit #{start}, #{size}")
+    List<Question> selectAll(@Param("start") Integer start, @Param("size") Integer size);
 
     @Select("select * from question where creator = #{id}")
     List<Question> selectQuestionProfile(Long id);
 
     @Select("select * from question where id = #{questionId}")
     Question getIdQuestion(Long questionId);
+
+    @Select("select count(1) from question")
+    Integer dataCount();
+
+    @Update("update question set view_count = #{num} where id = #{questionId}")
+    void updateviewCount(Long questionId, Integer num);
+
+    @Select("select view_count from question where id = #{questionId}")
+    Integer getViewCount(Long questionId);
 }

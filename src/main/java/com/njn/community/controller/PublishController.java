@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.Cookie;
@@ -17,28 +18,30 @@ public class PublishController {
     @Autowired
     private QuestionService questionService;
 
+
+
     @GetMapping("/pulish")
     public String publish() {
         return "publish";
     }
 
-    @PostMapping("/pulish")
-    public String publish(Question question, Model model, HttpServletRequest request) {
-
+    @PostMapping("/publish/{userId}")
+    public String publish(@PathVariable("userId") String userId, Question question, Model model, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if(cookies != null) {
             for(Cookie cookie : cookies) {
                 if(cookie.getName().equals("token")) {
+                    question.setCreator(Integer.parseInt(userId));
                     Integer integer = questionService.insertQuestion(question);
                     if(integer != null) {
-                        return "publish";
+                        return "redirect:/";
                     }
                 }
             }
         }
 
         model.addAttribute("error", "用户未登录");
-        return "publish";
+        return "redirect:/login";
     }
 
 }
