@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper
 public interface QuestionMapper {
 
-    @Insert("insert into question(title, desciption, gmt_create, gmt_modified, creator, comment_count, view_count, like_count, tag)" +
-            "values(#{title}, #{desciption}, #{gmtCreate}, #{gmtModified}, #{creator}, #{commentCount}, #{viewCount}, #{likeCount}, #{tag})")
+    @Insert("insert into question(title, desciption, gmt_create, gmt_modified, creator, tag)" +
+            "values(#{title}, #{desciption}, #{gmtCreate}, #{gmtModified}, #{creator},  #{tag})")
     Integer insertQuestion(Question question);
 
     @Select("select * from question order by gmt_create desc limit #{start}, #{size}")
